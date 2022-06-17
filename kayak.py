@@ -2,6 +2,7 @@ import random
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
+import pandas as pd
 
 
 link = "https://www.kayak.pl/flights"
@@ -84,7 +85,7 @@ def best_results():
     best_button.click()
 
 
-def get_flight_data(index, index4, index8):
+def get_flight_data(index, index4, index8, df):
 
     print("\n" + "result " + str(index + 1) + "\n")
 
@@ -109,18 +110,13 @@ def get_flight_data(index, index4, index8):
     stops_1 = driver.find_elements(
         by=By.XPATH, value="//span[contains(@class,'stops-text')]"
     )
-    # //span[contains(@class,'stops-text')]
     print(stops_1[index4].text)
 
     time_1 = driver.find_elements(
         by=By.XPATH,
         value="//div[contains(@class,'duration') and contains(@class,'section')]/*[1]",
     )
-    # //div[contains(@class,'duration') and contains(@class,'section')]/*[1]
     print(time_1[index4].text)
-    time.sleep(1)
-
-    """//div[contains(@class,'stacked-carriers')]"""
 
     # flight 2
     print("flight 2:")
@@ -164,6 +160,26 @@ def get_flight_data(index, index4, index8):
 
 
 def process_results():
+
+    df = pd.DataFrame()
+    df.columns = (
+        "dep_time_1",
+        "arr_time_1",
+        "airport_1_1",
+        "airport_1_2",
+        "stops_1",
+        "time_1",
+        "dep_time_2",
+        "arr_time_2",
+        "airport_2_1",
+        "airport_2_2",
+        "stops_2",
+        "time_2",
+        "airlines",
+        "prize",
+    )
+    print(df)
+
     cheapest_results()
     time.sleep(5)
     index = 0
