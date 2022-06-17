@@ -22,16 +22,15 @@ def dep_country_chooser(dep_country):
     remove_default = driver.find_element(
         by=By.XPATH, value="//div[@class='vvTc-item-close']"
     )
-    time.sleep(1)
     remove_default.click()
     fly_from = driver.find_element(by=By.XPATH, value="//input[@aria-label='Wylot z']")
-    time.sleep(1)
+    time.sleep(random.uniform(0.3, 1))
     fly_from.click()
-    time.sleep(1)
+    time.sleep(random.uniform(0.3, 1))
     fly_from.clear()
-    time.sleep(1)
+    time.sleep(random.uniform(0.3, 1))
     fly_from.click()
-    time.sleep(1.5)
+    time.sleep(random.uniform(0.3, 1))
     fly_from.send_keys(dep_country)
 
 
@@ -39,27 +38,24 @@ def ret_country_chooser(ret_country):
     fly_from = driver.find_element(
         by=By.XPATH, value="//input[@aria-label='Kierunek podróży']"
     )
-    time.sleep(1)
     fly_from.click()
-    time.sleep(1.5)
+    time.sleep(random.uniform(0.3, 1))
     fly_from.send_keys(ret_country)
 
 
 def dep_date_chooser(dep_date):
     date_box = driver.find_element(by=By.XPATH, value="//span[@class='sR_k-value']")
-    time.sleep(1)
     date_box.click()
-    time.sleep(5.5)
+    time.sleep(5)
     date_button = driver.find_element(
-        by=By.XPATH, value="//div[@aria-label='13 lip 2022']"
+        by=By.XPATH, value="//div[@aria-label='18 cze 2022']"
     )
     date_button.click()
 
 
 def ret_date_chooser(ret_date):
-    time.sleep(1)
     date_button = driver.find_element(
-        by=By.XPATH, value="//div[@aria-label='21 lip 2022']"
+        by=By.XPATH, value="//div[@aria-label='29 lip 2022']"
     )
     date_button.click()
 
@@ -68,20 +64,16 @@ def submit_search():
     sub_button = driver.find_element(
         by=By.XPATH, value="//button[@aria-label='Szukaj']"
     )
-    print(sub_button)
-    time.sleep(1)
     sub_button.click()
 
 
 def load_more():
     more_button = driver.find_element(by=By.XPATH, value="//a[@class='moreButton']")
-    time.sleep(1)
     more_button.click()
 
 
 def cheapest_results():
     cheap_button = driver.find_element(by=By.XPATH, value="//a[@data-sort='price_a']")
-    time.sleep(1)
     cheap_button.click()
 
 
@@ -89,37 +81,129 @@ def best_results():
     best_button = driver.find_element(
         by=By.XPATH, value="//a[@data-sort='bestflight_a']"
     )
-    time.sleep(1)
     best_button.click()
 
 
-def get_flight_data():
-    dep_time_1 = driver.find_element(
+def get_flight_data(index, index4, index8):
+
+    print("\n" + "result " + str(index + 1) + "\n")
+
+    # flight 1
+    print("flight 1:")
+    dep_time_1 = driver.find_elements(
         by=By.XPATH, value="//span[@class='depart-time base-time']"
     )
-    print(dep_time_1.text)
-    time.sleep(15)
+    print(dep_time_1[index4].text)
+
+    arr_time_1 = driver.find_elements(
+        by=By.XPATH, value="//span[@class='arrival-time base-time']"
+    )
+    print(arr_time_1[index4].text)
+
+    airport_1 = driver.find_elements(by=By.XPATH, value="//span[@class='airport-name']")
+    print(airport_1[index8].text)
+
+    airport_2 = driver.find_elements(by=By.XPATH, value="//span[@class='airport-name']")
+    print(airport_2[index8 + 1].text)
+
+    stops_1 = driver.find_elements(
+        by=By.XPATH, value="//span[contains(@class,'stops-text')]"
+    )
+    # //span[contains(@class,'stops-text')]
+    print(stops_1[index4].text)
+
+    time_1 = driver.find_elements(
+        by=By.XPATH,
+        value="//div[contains(@class,'duration') and contains(@class,'section')]/*[1]",
+    )
+    # //div[contains(@class,'duration') and contains(@class,'section')]/*[1]
+    print(time_1[index4].text)
+    time.sleep(1)
+
+    """//div[contains(@class,'stacked-carriers')]"""
+
+    # flight 2
+    print("flight 2:")
+    dep_time_1 = driver.find_elements(
+        by=By.XPATH, value="//span[@class='depart-time base-time']"
+    )
+    print(dep_time_1[index4 + 1].text)
+
+    arr_time_1 = driver.find_elements(
+        by=By.XPATH, value="//span[@class='arrival-time base-time']"
+    )
+    print(arr_time_1[index4 + 1].text)
+
+    airport_1 = driver.find_elements(by=By.XPATH, value="//span[@class='airport-name']")
+    print(airport_1[index8 + 2].text)
+
+    airport_2 = driver.find_elements(by=By.XPATH, value="//span[@class='airport-name']")
+    print(airport_2[index8 + 3].text)
+
+    stops_1 = driver.find_elements(
+        by=By.XPATH, value="//span[contains(@class,'stops-text')]"
+    )
+    print(stops_1[index4 + 1].text)
+
+    time_1 = driver.find_elements(
+        by=By.XPATH,
+        value="//div[contains(@class,'duration') and contains(@class,'section')]/*[1]",
+    )
+    print(time_1[index4 + 1].text)
+
+    # airlines
+    airlines = driver.find_elements(
+        by=By.XPATH, value="//span[@class='codeshares-airline-names']"
+    )
+    print(airlines[index].text)
+
+    # price
+    price = driver.find_elements(by=By.XPATH, value="//span[@class='price-text']")
+    print(price[index].text)
+    time.sleep(1)
 
 
 def process_results():
-    get_flight_data()
-    time.sleep(15)
     cheapest_results()
     time.sleep(5)
-    best_results()
-    time.sleep(5)
+    index = 0
+    index4 = 0
+    index8 = 0
+
+    while index < 15:
+        get_flight_data(index, index4, index8)
+        index += 1
+        index4 += 4
+        index8 += 8
     load_more()
     time.sleep(5)
-    load_more
+
+    while index < 30:
+        get_flight_data(index, index4, index8)
+        index += 1
+        index4 += 4
+        index8 += 8
+    load_more()
+    time.sleep(5)
+
+    while index < 45:
+        get_flight_data(index, index4, index8)
+        index += 1
+        index4 += 4
+        index8 += 8
+    load_more()
+    time.sleep(5)
+
+    time.sleep(500)
 
 
 driver.get(link)
 time.sleep(5)
 closeCookie()
 time.sleep(random.uniform(0.5, 2))
-dep_country_chooser("krk")
+dep_country_chooser("waw")
 time.sleep(random.uniform(0.5, 2))
-ret_country_chooser("lon")
+ret_country_chooser("tos")
 time.sleep(random.uniform(0.5, 2))
 dep_date_chooser(1)
 time.sleep(random.uniform(0.5, 2))
