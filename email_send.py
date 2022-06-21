@@ -2,10 +2,10 @@ import smtplib
 import ssl
 from email.message import EmailMessage
 
-def sender(subject, attach):		
+def sender(subject, attach, email_adress):		
 	email_sender = 'jezyki.skryptowe.260468@gmail.com'
 	email_password = 'vfwhbrpvgxondsuu'
-	email_receiver = 'kapicalaporamancza@gmail.com'
+	email_receiver = email_adress
 
 	body = "Wyniki twojego zapytania znajdują się w załączniku."
 
